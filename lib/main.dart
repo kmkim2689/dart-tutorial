@@ -1,7 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  const tag = "main";
+  // runApp(const MyApp());
+  debugPrint("$tag, hello");
+
 }
 
 class MyApp extends StatelessWidget {
