@@ -2,12 +2,98 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+// enum classes : 선택의 폭을 좁힌다.
+enum Team { blue, red }
+enum Xp { medium, strong }
+
+class Player {
+  final String name;
+  // enum 클래스 사용 시, 타입으로 enum 클래스명
+  Xp xp;
+  Team team;
+  int age;
+
+  Player({
+    required this.name,
+    required this.xp,
+    required this.team,
+    required this.age
+  });
+
+  // named constructor
+  // : => initialize properties
+  Player.createBluePlayer({
+    // 밖으로부터 넘겨받는 값
+    required String name,
+    required int age
+    // 나머지 : bluePlayer라는 특성에 맞는 값을 초기에 설정
+  }):this.age = age,
+        this.name = name,
+        // 사용 시, enum명.속성
+        this.team = Team.blue,
+        this.xp = Xp.medium;
+
+  Player.createRedPlayer(
+      String name,
+      int age
+      ) : this.age = age, this.name = name, this.team = Team.red, this.xp = Xp.strong;
+
+  // api로부터 받은 것을 클래스로 만들기
+  // named constructor 이용...
+  Player.fromJson(
+      Map<String, dynamic> playerJson
+      ): name = playerJson['name'], team = playerJson['team'], xp = playerJson['xp'], age = playerJson['age'];
+
+  void sayHello() {
+    debugPrint("hello ${this.name}");
+  }
+}
+
+
+
 void main() {
-  const tag = "main";
-  // runApp(const MyApp());
-  debugPrint("$tag, hello");
+
+  var apiData = [
+    {
+      "name": "km",
+      "team": "red",
+      "xp": 0,
+      "age": 12
+    },
+    {
+      "name": "lynn",
+      "team": "red",
+      "xp": 0,
+      "age": 12
+    },
+    {
+        "name": "dart",
+        "team": "red",
+        "xp": 0,
+        "age": 12
+    }
+  ];
+
+  var player = Player(
+    name: "km",
+    xp: Xp.medium,
+    team: Team.blue,
+    age: 21
+  );
+
+  player.sayHello();
+
+  var bluePlayer = Player.createBluePlayer(name: "km", age: 10);
+  var redPlayer = Player.createRedPlayer("kmkim", 12);
+
+  apiData.forEach((playerJson) {
+    var player = Player.fromJson(playerJson);
+    player.sayHello();
+  });
+
 
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
