@@ -49,7 +49,32 @@ class Player {
   }
 }
 
+// inheritance
+class Human {
+  String name;
+  Human(this.name);
 
+  void sayHello() {
+    debugPrint("hello i'm $name!");
+  }
+}
+
+class Man extends Human {
+  Team team;
+  Man(
+      this.team,
+      String name
+  ): super(name); // 여기서 super는 Human 클래스에 해당. Human 클래스에 Man의 name이라는 속성을 넣어준 것
+
+  // override function
+  @override
+  void sayHello() {
+    // 부모 클래스인 Human의 함수 불러오기
+    super.sayHello();
+    // 부모 클래스의 기능뿐만 아니라 다른 기능들도 추가 가능. 물론 아예 새로 정의도 가능
+    debugPrint("i'm in team $team");
+  }
+}
 
 void main() {
 
@@ -90,6 +115,10 @@ void main() {
     var player = Player.fromJson(playerJson);
     player.sayHello();
   });
+
+  // inheritance
+  var man = Man(Team.blue, "km");
+  man.sayHello();
 
 
 }
